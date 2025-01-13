@@ -7,8 +7,17 @@ export default function Home() {
         <p className="text-[#8E8E8E]">
           Please provide all current information accurately.
         </p>
-        <div>
-          <div></div>
+        <div className="flex flex-col items-start gap-7 w-[416px]">
+          <div className="flex flex-col items-start gap-2 self-stretch">
+            <p className="text-[#334155] text-[14px] font-semibold">
+              First name
+            </p>
+            <input
+              className="flex p-3 items-center self-stretch rounded-lg border-[1px] border-solid border-[#0ca5e9] "
+              type="text"
+              placeholder="placeholder"
+            />
+          </div>
           <div></div>
           <div></div>
         </div>
