@@ -1,3 +1,5 @@
+import Input from "@/components/Input";
+
 export default function Home() {
   return (
     <div className="flex justify-center items-center ">
@@ -8,16 +10,9 @@ export default function Home() {
           Please provide all current information accurately.
         </p>
         <div className="flex flex-col items-start gap-7 w-[416px]">
-          <div className="flex flex-col items-start gap-2 self-stretch">
-            <p className="text-[#334155] text-[14px] font-semibold">
-              First name
-            </p>
-            <input
-              className="flex p-3 items-center self-stretch rounded-lg border-[1px] border-solid border-[#0ca5e9] "
-              type="text"
-              placeholder="placeholder"
-            />
-          </div>
+          <Input label="First name" placeholder="Your first name" />
+          <Input label="Last name" placeholder="Your last name" />
+          <Input label="User name" placeholder="Your username" />
           <div></div>
           <div></div>
         </div>

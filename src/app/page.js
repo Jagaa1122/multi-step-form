@@ -1,4 +1,4 @@
-import Image from "next/image";
+"use client";
 import Step1 from "@/components/Step1";
 
 export default function Home() {
