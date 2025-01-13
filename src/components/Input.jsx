@@ -1,5 +1,9 @@
-export default function Input({ label, placeholder }) {
-  const error = null;
+export default function Input({ label, placeholder, errortext}) {
+  const error = false;
+  let errormessage = null;
+  if(error){
+     errormessage = <div className="text-[#e14942]">{errortext}</div>;
+    };
   return (
     <div className="flex flex-col items-start gap-2 self-stretch">
       <p className="text-[#334155] text-[14px] font-semibold">
@@ -11,7 +15,8 @@ export default function Input({ label, placeholder }) {
         } `}
         type="text"
         placeholder={placeholder}
-      />
+      /> 
+     {errormessage}
     </div>
   );
 }
