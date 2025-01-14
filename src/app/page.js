@@ -14,6 +14,9 @@ export default function Home() {
         onClick={() => {
           setCurrentStep(currentStep + 1);
         }}
+        goBack={() => {
+          setCurrentStep(currentStep - 1);
+        }}
       />
     </div>
   );

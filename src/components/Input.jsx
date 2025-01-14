@@ -18,7 +18,7 @@ export default function Input({
       <input
         onChange={onChange}
         name={name}
-        className={`flex p-3 items-center self-stretch rounded-lg border-[1px] border-solid border-[#8b8e95] focus:outline-none focus:border-[#0ca5e9]  `}
+        className={`text-black flex p-3 items-center self-stretch rounded-lg border-[1px] border-solid border-[#8b8e95] focus:outline-none focus:border-[#0ca5e9]  `}
         type="text"
         placeholder={placeholder}
       />

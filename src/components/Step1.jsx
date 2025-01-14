@@ -1,6 +1,7 @@
 import Input from "@/components/Input";
 import Buttons from "@/components/Buttons";
 import { useState } from "react";
+
 export default function Home({ currentStep, onClick }) {
   const [formValues, setFormValues] = useState({
     firstName: "",
@@ -16,37 +17,43 @@ export default function Home({ currentStep, onClick }) {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
     setFormErrors((prev) => ({ ...prev, [name]: "" }));
-
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleClick = () => {
-    const { firstName, lastName, userName } = formValues;
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { ...formErrors };
 
-    if (!firstName.trim()) {
-      setFormErrors((prev) => ({
-        ...prev,
-        firstName: "First name cannot contain special characters or numbers.",
-      }));
+    if (!formValues.firstName.trim()) {
+      newErrors.firstName = "First name is required";
+      isValid = false;
+    } 
+
+    if (!formValues.lastName.trim()) {
+      newErrors.lastName = "Last name is required";
+      isValid = false;
+    } 
+
+    if (!formValues.userName.trim()) {
+      newErrors.userName = "Username is required";
+      isValid = false;
     }
-    if (!lastName.trim()) {
-      setFormErrors((prev) => ({
-        ...prev,
-        lastName: "Last name cannot contain special characters or numbers.",
-      }));
-    }
-    if (!userName.trim()) {
-      setFormErrors((prev) => ({
-        ...prev,
-        userName: "This username is already taken. Please choose another one.",
-      }));
+
+    setFormErrors(newErrors);
+    return isValid;
+  };
+
+  const handleClick = () => {
+    const isValid = validateForm();
+    
+    if (isValid) {
       onClick();
     }
   };
+
   return (
-    <div className="flex bg-[#ffffff] w-[480px] h-[655px] p-[32px] flex-col">
+    <div className="flex bg-[#ffffff] w-[480px] min-h-[655px] p-[32px] flex-col">
       <img src="Main 1.png" width="60px" alt="" />
       <h1 className="text-[#202124] font-bold text-[26px]">Join Us! 😎</h1>
       <p className="text-[#8E8E8E] mb-5">
@@ -59,6 +66,7 @@ export default function Home({ currentStep, onClick }) {
           errortext={formErrors.firstName}
           onChange={handleChange}
           name="firstName"
+          value={formValues.firstName}
         />
         <Input
           label="Last name"
@@ -66,6 +74,7 @@ export default function Home({ currentStep, onClick }) {
           errortext={formErrors.lastName}
           onChange={handleChange}
           name="lastName"
+          value={formValues.lastName}
         />
         <Input
           label="User name"
@@ -73,9 +82,10 @@ export default function Home({ currentStep, onClick }) {
           errortext={formErrors.userName}
           onChange={handleChange}
           name="userName"
+          value={formValues.userName}
         />
       </div>
-      <div className="mt-auto text-center">
+      <div className="mt-auto text-center pt-8 flex">
         <Buttons
           handleClick={handleClick}
           onClick={onClick}
