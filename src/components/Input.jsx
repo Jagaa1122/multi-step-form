@@ -20,7 +20,7 @@ export default function Input({
         onChange={onChange}
         name={name}
         type={type}
-        className={`text-black flex p-3 items-center self-stretch rounded-lg border-[1px] border-solid  ${
+        className={`text-black ${type == "file" ? "h-[100px]" : "" } flex p-3 items-center self-stretch rounded-lg border-[1px] border-solid  ${
           errortext ? "border-[#e14942]" : "border-[#8b8e95]"
         }
          focus:outline-none focus:border-[#0ca5e9]  `}

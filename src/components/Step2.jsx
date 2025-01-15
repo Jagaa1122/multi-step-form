@@ -30,6 +30,9 @@ export default function Home({ currentStep, onClick, goBack }) {
     if (!formValues.email.trim()) {
       newErrors.email = "Email address is required";
       isValid = false;
+    } else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email.trim())) {
+      newErrors.email = "Enter valid email";
+      isValid = false;
     }
 
     if (!formValues.phoneNumber.trim()) {

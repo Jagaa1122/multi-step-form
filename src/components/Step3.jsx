@@ -25,12 +25,26 @@ export default function Home({ currentStep, onClick, goBack }) {
     if (!formValues.dateOfBirth.trim()) {
       newErrors.dateOfBirth = "Please select a date.";
       isValid = false;
-    }
+    } else {
+    const currentDate = new Date();
+    const birthDate = new Date(formValues.dateOfBirth);
+    const age = currentDate.getFullYear() - birthDate.getFullYear();
+    const monthDifference = currentDate.getMonth() - birthDate.getMonth();
+    const dayDifference = currentDate.getDate() - birthDate.getDate();
 
-    // if (!formValues.profileImage.trim()) {
-    //   newErrors.profileImage = "Image cannot be blank";
-    //   isValid = false;
-    // }
+    if (
+      age < 18 || 
+      (age === 18 && (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)))
+    ) {
+      newErrors.dateOfBirth = "You must be at least 18 years old.";
+      isValid = false;
+    }
+  }
+
+    if (!formValues.profileImage.trim()) {
+      newErrors.profileImage = "Image cannot be blank";
+      isValid = false;
+    }
 
     setFormErrors(newErrors);
     return isValid;
@@ -58,12 +72,12 @@ export default function Home({ currentStep, onClick, goBack }) {
           name="dateOfBirth"
           type="date"
         />
-        <Input
+        <Input 
           label="Profile image"
-          //   errortext={formErrors.profileImage}
+            errortext={formErrors.profileImage}
           onChange={handleChange}
           name="profileImage"
-          type="image"
+          type="file"
         />
       </div>
       <div className="flex mt-auto text-center pt-8 gap-2 ">
