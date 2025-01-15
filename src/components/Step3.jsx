@@ -1,20 +1,15 @@
 import Input from "@/components/Input";
 import Buttons from "@/components/Buttons";
 import { useState } from "react";
-
 export default function Home({ currentStep, onClick, goBack }) {
   const [formValues, setFormValues] = useState({
-    email: "",
-    phoneNumber: "",
-    password: "",
-    confirmPassword: "",
+    dateOfBirth: "",
+    profileImage: "",
   });
 
   const [formErrors, setFormErrors] = useState({
-    email: "",
-    phoneNumber: "",
-    password: "",
-    confirmPassword: "",
+    dateOfBirth: "",
+    profileImage: "",
   });
 
   const handleChange = (event) => {
@@ -27,25 +22,15 @@ export default function Home({ currentStep, onClick, goBack }) {
     let isValid = true;
     const newErrors = { ...formErrors };
 
-    if (!formValues.email.trim()) {
-      newErrors.email = "Email address is required";
+    if (!formValues.dateOfBirth.trim()) {
+      newErrors.dateOfBirth = "Please select a date.";
       isValid = false;
     }
 
-    if (!formValues.phoneNumber.trim()) {
-      newErrors.phoneNumber = "Phone number is required";
-      isValid = false;
-    }
-
-    if (!formValues.password.trim()) {
-      newErrors.password = "Password is required";
-      isValid = false;
-    }
-
-    if (!formValues.confirmPassword.trim()) {
-      newErrors.confirmPassword = "Confirm your password";
-      isValid = false;
-    }
+    // if (!formValues.profileImage.trim()) {
+    //   newErrors.profileImage = "Image cannot be blank";
+    //   isValid = false;
+    // }
 
     setFormErrors(newErrors);
     return isValid;
@@ -58,7 +43,6 @@ export default function Home({ currentStep, onClick, goBack }) {
       onClick();
     }
   };
-
   return (
     <div className="flex bg-[#ffffff] w-[480px] min-h-[655px] p-[32px] flex-col">
       <img src="Main 1.png" width="60px" alt="" />
@@ -66,42 +50,20 @@ export default function Home({ currentStep, onClick, goBack }) {
       <p className="text-[#8E8E8E] mb-5">
         Please provide all current information accurately.
       </p>
-      <div className="flex flex-col items-start gap-1 w-[416px]">
+      <div className="flex flex-col items-start gap-2 w-[416px]">
         <Input
-          label="Email"
-          placeholder="Your email address"
-          errortext={formErrors.email}
+          label="Date of birth"
+          errortext={formErrors.dateOfBirth}
           onChange={handleChange}
-          name="email"
-          type="email"
-          value={formValues.email}
+          name="dateOfBirth"
+          type="date"
         />
         <Input
-          label="Phone number"
-          placeholder="Your phone number"
-          errortext={formErrors.phoneNumber}
+          label="Profile image"
+          //   errortext={formErrors.profileImage}
           onChange={handleChange}
-          name="phoneNumber"
-          type="number"
-          value={formValues.phoneNumber}
-        />
-        <Input
-          label="Password"
-          placeholder="Your password"
-          errortext={formErrors.password}
-          onChange={handleChange}
-          name="password"
-          type="password"
-          value={formValues.password}
-        />
-        <Input
-          label="Confirm Password"
-          placeholder="Confirm your password"
-          errortext={formErrors.confirmPassword}
-          onChange={handleChange}
-          name="confirmPassword"
-          type="password"
-          value={formValues.confirmPassword}
+          name="profileImage"
+          type="image"
         />
       </div>
       <div className="flex mt-auto text-center pt-8 gap-2 ">

@@ -28,12 +28,12 @@ export default function Home({ currentStep, onClick }) {
     if (!formValues.firstName.trim()) {
       newErrors.firstName = "First name is required";
       isValid = false;
-    } 
+    }
 
     if (!formValues.lastName.trim()) {
       newErrors.lastName = "Last name is required";
       isValid = false;
-    } 
+    }
 
     if (!formValues.userName.trim()) {
       newErrors.userName = "Username is required";
@@ -46,7 +46,7 @@ export default function Home({ currentStep, onClick }) {
 
   const handleClick = () => {
     const isValid = validateForm();
-    
+
     if (isValid) {
       onClick();
     }
@@ -59,7 +59,7 @@ export default function Home({ currentStep, onClick }) {
       <p className="text-[#8E8E8E] mb-5">
         Please provide all current information accurately.
       </p>
-      <div className="flex flex-col items-start gap-7 w-[416px]">
+      <div className="flex flex-col items-start gap-2 w-[416px]">
         <Input
           label="First name"
           placeholder="Your first name"
@@ -87,6 +87,7 @@ export default function Home({ currentStep, onClick }) {
       </div>
       <div className="mt-auto text-center pt-8 flex">
         <Buttons
+          currentStep={currentStep + 1}
           handleClick={handleClick}
           onClick={onClick}
           title="Continue 1/3"

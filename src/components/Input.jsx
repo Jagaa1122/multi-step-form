@@ -4,6 +4,7 @@ export default function Input({
   errortext,
   name,
   onChange,
+  type,
 }) {
   // const error = false;
   // let errormessage = null;
@@ -18,15 +19,16 @@ export default function Input({
       <input
         onChange={onChange}
         name={name}
-        className={`text-black flex p-3 items-center self-stretch rounded-lg border-[1px] border-solid border-[#8b8e95] focus:outline-none focus:border-[#0ca5e9]  `}
-        type="text"
+        type={type}
+        className={`text-black flex p-3 items-center self-stretch rounded-lg border-[1px] border-solid  ${
+          errortext ? "border-[#e14942]" : "border-[#8b8e95]"
+        }
+         focus:outline-none focus:border-[#0ca5e9]  `}
         placeholder={placeholder}
       />
-      <p className="text-[#e14942]">{errortext}</p>
+      <p className="text-[#e14942] text-[13px]">{errortext}</p>
       {/* {errormessage} */}
     </div>
   );
 }
-// ${
-//   error ? "border-[#e14942]" : "focus:border-[#0ca5e9]"
-// }
+//
