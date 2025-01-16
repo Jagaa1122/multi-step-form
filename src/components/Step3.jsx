@@ -3,14 +3,15 @@ import Buttons from "@/components/Buttons";
 import { useState } from "react";
 export default function Home({ currentStep, onClick, goBack }) {
   const [imageUrl, setImageUrl] = useState();
-  // const onFileUpload = event.target.files[0];
-  // setImageUrl(URL.createObjectURL(file));
   const onFileUpload = (event) => {
+   
     const file = event.target.files[0];
-
-    // const url = ;
-    setImageUrl(URL.createObjectURL(file));
-  };
+    
+    if (file){
+      setImageUrl(URL.createObjectURL(file));
+      setFormErrors((prev) => ({ ...prev, profileImage: "" }));
+    }
+    };
 
   const [formValues, setFormValues] = useState({
     dateOfBirth: "",
@@ -52,7 +53,7 @@ export default function Home({ currentStep, onClick, goBack }) {
       }
     }
 
-    if (!formValues.profileImage.trim()) {
+    if (!imageUrl) {
       newErrors.profileImage = "Image cannot be blank";
       isValid = false;
     }
@@ -83,21 +84,15 @@ export default function Home({ currentStep, onClick, goBack }) {
           name="dateOfBirth"
           type="date"
         />
-        {/* <Input
-          label="Profile image"
-          errortext={formErrors.profileImage}
-          onChange={onFileUpload}
-          name="profileImage"
-          type="file"
-        /> */}
-        <div id="profileImage">
-          <h2>
+
+        <div  className="w-full"  id="profileImage">
+          <h2 className="text-[#334155] text-[14px] font-semibold mb-3">
             Profile image <span className="text-[#e14942]">*</span>
           </h2>
-          <div className="bg-zinc-200 w-full h-[200px] flex justify-center items-center">
+          
             <label
               htmlFor="file-input"
-              className="bg-zinc-200 rounded-lg cursor-pointer"
+              
             >
               <input
                 hidden
@@ -105,11 +100,20 @@ export default function Home({ currentStep, onClick, goBack }) {
                 type="file"
                 onChange={onFileUpload}
               ></input>
-              <img className="object-cover" src={imageUrl} alt="Upload image" />
-              {/* <h1>Upload image</h1> */}
+              {imageUrl ? ( 
+              <img className="object-contain h-[200px] w-full bg-zinc-200" src={imageUrl} alt="Upload image" />
+            ) : (
+              <div className="bg-zinc-200 w-full h-[200px] flex justify-center items-center flex-col">
+                 <img className="mx-auto" src="Uploadicon.svg" />
+  
+                 <p className="text-[#334155] mt-3">Add image</p>
+                 </div>
+            )};
             </label>
-          </div>
-          <p>{formErrors.profileImage}</p>
+         
+            {formErrors.profileImage && (
+    <p className="text-[#e14942] text-[13px]">{formErrors.profileImage}</p>
+  )}
         </div>
       </div>
       <div className="flex mt-auto text-center pt-8 gap-2 ">
