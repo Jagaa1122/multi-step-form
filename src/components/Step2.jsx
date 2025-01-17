@@ -1,5 +1,7 @@
 import Input from "@/components/Input";
 import Buttons from "@/components/Buttons";
+import * as motion from "motion/react-client";
+
 import { useState } from "react";
 
 export default function Home({ currentStep, onClick, goBack }) {
@@ -30,7 +32,7 @@ export default function Home({ currentStep, onClick, goBack }) {
     if (!formValues.email.trim()) {
       newErrors.email = "Email address is required";
       isValid = false;
-    } else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email.trim())) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email.trim())) {
       newErrors.email = "Enter valid email";
       isValid = false;
     }
@@ -49,6 +51,13 @@ export default function Home({ currentStep, onClick, goBack }) {
       newErrors.confirmPassword = "Confirm your password";
       isValid = false;
     }
+    if (formValues.password.length < 6) {
+      newErrors.password = "6 opontoi dugaar oruulna uu";
+      isValid = false;
+    } else if (formValues.password !== formValues.confirmPassword) {
+      newErrors.confirmPassword = "Tanii oruulsan nuuts ug taarahgui bn";
+      isValid = false;
+    }
 
     setFormErrors(newErrors);
     return isValid;
@@ -63,7 +72,13 @@ export default function Home({ currentStep, onClick, goBack }) {
   };
 
   return (
-    <div className="flex bg-[#ffffff] w-[480px] min-h-[655px] p-[32px] flex-col">
+    <motion.div
+      className="flex bg-[#ffffff] w-[480px] min-h-[655px] p-[32px] flex-col"
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.72 }}
+    >
       <img src="Main 1.png" width="60px" alt="" />
       <h1 className="text-[#202124] font-bold text-[26px]">Join Us! 😎</h1>
       <p className="text-[#8E8E8E] mb-5">
@@ -121,6 +136,6 @@ export default function Home({ currentStep, onClick, goBack }) {
           currentStep={currentStep + 1}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }

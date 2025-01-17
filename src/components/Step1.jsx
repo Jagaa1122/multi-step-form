@@ -1,5 +1,7 @@
 import Input from "@/components/Input";
 import Buttons from "@/components/Buttons";
+import * as motion from "motion/react-client";
+
 import { useState } from "react";
 
 export default function Home({ currentStep, onClick }) {
@@ -53,7 +55,13 @@ export default function Home({ currentStep, onClick }) {
   };
 
   return (
-    <div className="flex bg-[#ffffff] w-[480px] min-h-[655px] p-[32px] flex-col">
+    <motion.div
+      className="flex bg-[#ffffff] w-[480px] min-h-[655px] p-[32px] flex-col"
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.72 }}
+    >
       <img src="Main 1.png" width="60px" alt="" />
       <h1 className="text-[#202124] font-bold text-[26px]">Join Us! 😎</h1>
       <p className="text-[#8E8E8E] mb-5">
@@ -93,6 +101,6 @@ export default function Home({ currentStep, onClick }) {
           title="Continue 1/3"
         />
       </div>
-    </div>
+    </motion.div>
   );
 }

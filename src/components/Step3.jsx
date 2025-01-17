@@ -1,17 +1,17 @@
 import Input from "@/components/Input";
 import Buttons from "@/components/Buttons";
 import { useState } from "react";
+import * as motion from "motion/react-client";
 export default function Home({ currentStep, onClick, goBack }) {
   const [imageUrl, setImageUrl] = useState();
   const onFileUpload = (event) => {
-   
     const file = event.target.files[0];
-    
-    if (file){
+
+    if (file) {
       setImageUrl(URL.createObjectURL(file));
       setFormErrors((prev) => ({ ...prev, profileImage: "" }));
     }
-    };
+  };
 
   const [formValues, setFormValues] = useState({
     dateOfBirth: "",
@@ -70,7 +70,13 @@ export default function Home({ currentStep, onClick, goBack }) {
     }
   };
   return (
-    <div className="flex bg-[#ffffff] w-[480px] min-h-[655px] p-[32px] flex-col">
+    <motion.div
+      className="flex bg-[#ffffff] w-[480px] min-h-[655px] p-[32px] flex-col"
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.72 }}
+    >
       <img src="Main 1.png" width="60px" alt="" />
       <h1 className="text-[#202124] font-bold text-[26px]">Join Us! 😎</h1>
       <p className="text-[#8E8E8E] mb-5">
@@ -85,35 +91,38 @@ export default function Home({ currentStep, onClick, goBack }) {
           type="date"
         />
 
-        <div  className="w-full"  id="profileImage">
+        <div className="w-full" id="profileImage">
           <h2 className="text-[#334155] text-[14px] font-semibold mb-3">
             Profile image <span className="text-[#e14942]">*</span>
           </h2>
-          
-            <label
-              htmlFor="file-input"
-              
-            >
-              <input
-                hidden
-                id="file-input"
-                type="file"
-                onChange={onFileUpload}
-              ></input>
-              {imageUrl ? ( 
-              <img className="object-contain h-[200px] w-full bg-zinc-200" src={imageUrl} alt="Upload image" />
+
+          <label htmlFor="file-input">
+            <input
+              hidden
+              id="file-input"
+              type="file"
+              onChange={onFileUpload}
+            ></input>
+            {imageUrl ? (
+              <img
+                className="object-contain h-[200px] w-full bg-zinc-200"
+                src={imageUrl}
+                alt="Upload image"
+              />
             ) : (
               <div className="bg-zinc-200 w-full h-[200px] flex justify-center items-center flex-col">
-                 <img className="mx-auto" src="Uploadicon.svg" />
-  
-                 <p className="text-[#334155] mt-3">Add image</p>
-                 </div>
-            )};
-            </label>
-         
-            {formErrors.profileImage && (
-    <p className="text-[#e14942] text-[13px]">{formErrors.profileImage}</p>
-  )}
+                <img className="mx-auto" src="Uploadicon.svg" />
+
+                <p className="text-[#334155] mt-3">Add image</p>
+              </div>
+            )}
+          </label>
+
+          {formErrors.profileImage && (
+            <p className="text-[#e14942] text-[13px]">
+              {formErrors.profileImage}
+            </p>
+          )}
         </div>
       </div>
       <div className="flex mt-auto text-center pt-8 gap-2 ">
@@ -130,6 +139,6 @@ export default function Home({ currentStep, onClick, goBack }) {
           currentStep={currentStep + 1}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
